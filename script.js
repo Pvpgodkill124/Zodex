@@ -19,9 +19,9 @@ async function fetchZodexResults(query) {
       keywords: ["elite", "engine", "search"]
     },
     {
-      title: "ReminderNova - Smart Reminder",
+      title: "RemiderNova",
       url: "https://www.remidernova.nichesite.org",
-      keywords: ["remindernova", "reminder", "nova", "zodex"]
+      keywords: ["remidernova", "remider", "nova"]
     },
     {
       title: "Zodex Docs",
@@ -31,12 +31,12 @@ async function fetchZodexResults(query) {
     {
       title: "Zodex Privacy Center",
       url: "https://zodex.privacy.io",
-      keywords: ["privacy", "settings", "secure"]
+      keywords: ["privacy", "center"]
     },
     {
       title: "DR1WEB",
-      url: "https://dr1web.site.io",
-      keywords: ["dr1web", "dr1", "browser"]
+      url: "dr1web.neocities.org",
+      keywords: ["dr1web", "dr1"]
     }
   ];
 
