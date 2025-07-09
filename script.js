@@ -1,54 +1,34 @@
-// ZODEX Lite Search (V1)
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("search-form");
+  const input = document.getElementById("search-input");
+  const overlay = document.getElementById("search-overlay");
+  const results = document.getElementById("results");
 
-// Mock Results for demo purposes
-const mockResults = [
-  {
-    title: "ZODEX – Official Site",
-    link: "https://zodex.lite/search",
-    description: "ZODEX is a fast, secure, and private search engine."
-  },
-  {
-    title: "ReminderNova – Free Reminder App",
-    link: "https://www.remidernova.nichesite.org",
-    description: "Set reminders, get notified, and stay on track with ReminderNova."
-  },
-  {
-    title: "DR1WEB Project – GitHub",
-    link: "https://dr1web.neocities.org",
-    description: "Explore the browser and homepage project by DR1TRA."
-  }
-];
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const query = input.value.trim();
 
-function performSearch() {
-  const input = document.getElementById("searchInput");
-  const query = input.value.trim().toLowerCase();
-  const resultsBox = document.getElementById("results");
-  resultsBox.innerHTML = "";
+    if (query === "") return;
 
-  if (!query) {
-    resultsBox.innerHTML = "<p>Please enter a search query.</p>";
-    return;
-  }
+    // Show loading overlay
+    overlay.textContent = "Searching...";
+    overlay.classList.remove("hidden");
+    results.textContent = "";
 
-  // Simulate fetching results (use real API later)
-  const filtered = mockResults.filter(result =>
-    result.title.toLowerCase().includes(query) ||
-    result.description.toLowerCase().includes(query)
-  );
+    // Simulate search delay
+    setTimeout(() => {
+      // Show success message
+      overlay.textContent = "✓ Found results!";
+      overlay.style.color = "#0f0"; // green color for success
 
-  if (filtered.length === 0) {
-    resultsBox.innerHTML = "<p>No results found.</p>";
-    return;
-  }
+      // Show result message
+      results.innerHTML = `<p>No results found for "<strong>${query}</strong>".</p>`;
 
-  // Display results
-  filtered.forEach(result => {
-    const div = document.createElement("div");
-    div.className = "result";
-    div.innerHTML = `
-      <a href="${result.link}" target="_blank">${result.title}</a>
-      <p>${result.description}</p>
-    `;
-    resultsBox.appendChild(div);
+      // Hide overlay after 1.5s
+      setTimeout(() => {
+        overlay.classList.add("hidden");
+        overlay.style.color = "#1e90ff"; // reset color
+      }, 1500);
+    }, 1500); // simulate 1.5s delay
   });
-}
+});
