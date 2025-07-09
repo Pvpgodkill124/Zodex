@@ -1,10 +1,10 @@
-// script.js for ZODEX V3 (All-in-one version, no imports)
+// script.js for ZODEX V3 (with upgraded Zodex AI Engine)
 
 const form = document.getElementById("search-form"); const input = document.getElementById("search-input"); const resultsContainer = document.getElementById("results"); const overlay = document.getElementById("search-overlay");
 
-// Simulated Zodex Lite API - backend async function fetchZodexResults(query) { const database = [ { title: "Zodex Home", url: "https://pvpgodkill124.github.io/Zodex/" }, { title: "Zodex Elite Search", url: "https://pvpgodkill124.github.io/Zodex/?search=elite" }, { title: "ReminderNova - Smart Reminder", url: "https://www.remidernova.nichesite.org" }, { title: "Zodex Docs", url: "https://zodex.docs.io" }, { title: "Zodex Privacy Center", url: "https://zodex.privacy.io" }, { title: "Build your own browser", url: "https://zodex.dev/blog/build-browser" } ];
+// ✅ Upgraded Zodex AI Engine (smart local search) async function fetchZodexResults(query) { const database = [ { title: "Zodex Home", url: "https://pvpgodkill124.github.io/Zodex/", keywords: ["zodex", "home", "main"] }, { title: "Zodex Elite Search", url: "https://pvpgodkill124.github.io/Zodex/?search=elite", keywords: ["elite", "search"] }, { title: "ReminderNova - Smart Reminder", url: "https://www.remidernova.nichesite.org", keywords: ["reminder", "nova", "remidernova"] }, { title: "DR1WEB Homepage", url: "https://dr1web.neocities.org", keywords: ["dr1web", "homepage"] }, { title: "Zodex Docs", url: "https://zodex.docs.io", keywords: ["docs", "documentation"] }, { title: "Zodex Privacy Center", url: "https://zodex.privacy.io", keywords: ["privacy", "security"] }, { title: "Build your own browser", url: "https://zodex.dev/blog/build-browser", keywords: ["build", "browser"] } ];
 
-const results = database.filter(entry => entry.title.toLowerCase().includes(query.toLowerCase()) || entry.url.toLowerCase().includes(query.toLowerCase()) );
+const q = query.toLowerCase(); const results = database.filter(entry => { return ( entry.title.toLowerCase().includes(q) || entry.url.toLowerCase().includes(q) || entry.keywords.some(k => k.includes(q)) ); });
 
 await new Promise(resolve => setTimeout(resolve, 500)); return results; }
 
@@ -40,5 +40,5 @@ if (results.length === 0) {
   resultsContainer.appendChild(ul);
 }
 
-} catch (err) { overlay.classList.add("hidden"); resultsContainer.innerHTML = "<p>Error fetching results.</p>"; console.error("Zodex Lite API error:", err); } });
+} catch (err) { overlay.classList.add("hidden"); resultsContainer.innerHTML = "<p>Error fetching results.</p>"; console.error("Zodex AI Engine error:", err); } });
 
