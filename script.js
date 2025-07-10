@@ -1,12 +1,11 @@
-// === ZODEX V4 Script ===
+// === ZODEX V4/V5 Script ===
 
-// Search bar logic
 const form = document.getElementById("search-form");
 const input = document.getElementById("search-input");
 const overlay = document.getElementById("search-overlay");
 const results = document.getElementById("results");
 
-form.addEventListener("submit", async (e) => {
+form?.addEventListener("submit", async (e) => {
   e.preventDefault();
   const query = input.value.trim();
   if (!query) return;
@@ -14,11 +13,11 @@ form.addEventListener("submit", async (e) => {
   overlay.classList.remove("hidden");
   results.innerHTML = "";
 
-  // Fake search with Google (replace with Zodex AI later)
+  // Use Google search (temporary until Zodex API ready)
   setTimeout(() => {
     overlay.classList.add("hidden");
     window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
-  }, 1000);
+  }, 500);
 });
 
 // === Theme Toggle ===
@@ -33,8 +32,26 @@ window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("zodex-theme");
   if (savedTheme === "dark") {
     document.body.classList.add("dark");
-    themeToggle.checked = true;
+    if (themeToggle) themeToggle.checked = true;
   }
+
+  // Apply saved background
+  const savedBg = localStorage.getItem("zodex-bg");
+  if (savedBg) {
+    document.body.style.backgroundImage = `url(${savedBg})`;
+  }
+
+  // Clock toggle
+  const clockVisible = localStorage.getItem("zodex-show-clock") === "true";
+  document.getElementById("clock").style.display = clockVisible ? "block" : "none";
+  const toggleClock = document.getElementById("toggle-clock");
+  if (toggleClock) toggleClock.checked = clockVisible;
+
+  // Weather toggle
+  const weatherVisible = localStorage.getItem("zodex-show-weather") === "true";
+  document.getElementById("weather").style.display = weatherVisible ? "block" : "none";
+  const toggleWeather = document.getElementById("toggle-weather");
+  if (toggleWeather) toggleWeather.checked = weatherVisible;
 });
 
 // === Background Upload ===
@@ -52,11 +69,6 @@ bgUpload?.addEventListener("change", (e) => {
   reader.readAsDataURL(file);
 });
 
-const savedBg = localStorage.getItem("zodex-bg");
-if (savedBg) {
-  document.body.style.backgroundImage = `url(${savedBg})`;
-}
-
 // === Clock ===
 function updateClock() {
   const clockEl = document.getElementById("clock");
@@ -65,15 +77,13 @@ function updateClock() {
   const timeStr = now.toLocaleTimeString();
   clockEl.textContent = `🕒 ${timeStr}`;
 }
-
 setInterval(updateClock, 1000);
-updateClock(); // run once on page load
+updateClock();
 
-// === Weather API ===
+// === Weather ===
 async function fetchWeather() {
   const weatherEl = document.getElementById("weather");
-  weatherEl.textContent = "Getting weather...";
-
+  if (!weatherEl) return;
   try {
     const res = await fetch("https://wttr.in/?format=🌤️+%t+%w");
     const text = await res.text();
@@ -83,11 +93,9 @@ async function fetchWeather() {
     console.error(err);
   }
 }
-
-// Call it on load
 fetchWeather();
 
-// === Settings Panel Logic ===
+// === Settings Panel ===
 const settingsBtn = document.getElementById("settings-btn");
 const settingsPanel = document.getElementById("settings-panel");
 const saveBtn = document.getElementById("save-settings");
@@ -98,7 +106,19 @@ settingsBtn?.addEventListener("click", () => {
 });
 
 saveBtn?.addEventListener("click", () => {
+  // Save theme
   localStorage.setItem("zodex-theme", themeToggle.checked ? "dark" : "light");
+
+  // Save clock
+  const showClock = document.getElementById("toggle-clock").checked;
+  document.getElementById("clock").style.display = showClock ? "block" : "none";
+  localStorage.setItem("zodex-show-clock", showClock);
+
+  // Save weather
+  const showWeather = document.getElementById("toggle-weather").checked;
+  document.getElementById("weather").style.display = showWeather ? "block" : "none";
+  localStorage.setItem("zodex-show-weather", showWeather);
+
   alert("Settings saved!");
   settingsPanel.classList.add("hidden");
 });
