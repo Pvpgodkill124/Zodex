@@ -124,8 +124,8 @@ body.dark {
 .clock {
   color: #1e90ff;
   font-size: 1.2rem;
+  text-align: center;
   margin-top: 1rem;
-  font-weight: bold;
 }
 
 /* === Weather === */
