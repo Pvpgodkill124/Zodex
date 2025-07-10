@@ -1,110 +1,79 @@
-// script.js for ZODEX V3 (Zodex AI Engine patched)
+// === ZODEX V4 Script ===
 
+// Search bar logic
 const form = document.getElementById("search-form");
 const input = document.getElementById("search-input");
-const resultsContainer = document.getElementById("results");
 const overlay = document.getElementById("search-overlay");
+const results = document.getElementById("results");
 
-// ✅ Zodex AI Engine (local results)
-async function fetchZodexResults(query) {
-  const database = [
-    {
-      title: "Zodex Home",
-      url: "https://pvpgodkill124.github.io/Zodex/",
-      keywords: ["zodex", "home", "main"]
-    },
-    {
-      title: "Zodex Elite Search",
-      url: "https://pvpgodkill124.github.io/Zodex/?search=elite",
-      keywords: ["elite", "engine", "search"]
-    },
-    {
-      title: "RemiderNova",
-      url: "https://www.remidernova.nichesite.org",
-      keywords: ["remidernova", "remider", "nova"]
-    },
-    {
-      title: "Zodex Docs",
-      url: "https://zodex.docs.io",
-      keywords: ["docs", "documentation", "help"]
-    },
-    {
-      title: "Zodex Privacy Center",
-      url: "https://zodex.privacy.io",
-      keywords: ["privacy", "center"]
-    },
-    {
-      title: "DR1WEB",
-      url: "dr1web.neocities.org",
-      keywords: ["dr1web", "dr1"]
-    }
-  ];
-
-  const q = query.toLowerCase();
-  const results = database.filter(entry => {
-    return (
-      entry.title.toLowerCase().includes(q) ||
-      entry.url.toLowerCase().includes(q) ||
-      entry.keywords.some(k => k.toLowerCase().includes(q) || q.includes(k.toLowerCase()))
-    );
-  });
-
-  await new Promise(resolve => setTimeout(resolve, 300)); // Simulated delay
-  return results;
-}
-
-// ✅ Search engine handlers
-const engines = {
-  zodex: query => fetchZodexResults(query),
-
-  // Optional: external engines (currently not used)
-    google: query => {
-     window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
-     return Promise.resolve([]);
-    },
-   bing: query => {
-    window.open(`https://www.bing.com/search?q=${encodeURIComponent(query)}`, "_blank");
-     return Promise.resolve([]);
-    },
-   duckduckgo: query => {
-    window.open(`https://duckduckgo.com/?q=${encodeURIComponent(query)}`, "_blank");
-    return Promise.resolve([]);
-    }
-};
-
-let currentEngine = "zodex";
-
-// 🔍 Search logic
-form.addEventListener("submit", async e => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const query = input.value.trim();
   if (!query) return;
 
   overlay.classList.remove("hidden");
-  resultsContainer.innerHTML = "";
+  results.innerHTML = "";
 
-  try {
-    const results = await engines[currentEngine](query);
+  // Fake search with Google (replace with Zodex AI later)
+  setTimeout(() => {
     overlay.classList.add("hidden");
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, "_blank");
+  }, 1000);
+});
 
-    if (results.length === 0) {
-      resultsContainer.innerHTML = "<p>No results found.</p>";
-    } else {
-      const ul = document.createElement("ul");
-      results.forEach(result => {
-        const li = document.createElement("li");
-        const link = document.createElement("a");
-        link.href = result.url;
-        link.textContent = result.title;
-        link.target = "_blank";
-        li.appendChild(link);
-        ul.appendChild(li);
-      });
-      resultsContainer.appendChild(ul);
-    }
-  } catch (err) {
-    overlay.classList.add("hidden");
-    resultsContainer.innerHTML = "<p>Error fetching results.</p>";
-    console.error("Zodex AI Engine error:", err);
+// === Theme Toggle ===
+const themeToggle = document.getElementById("toggle-theme");
+
+themeToggle?.addEventListener("change", () => {
+  document.body.classList.toggle("dark", themeToggle.checked);
+  localStorage.setItem("zodex-theme", themeToggle.checked ? "dark" : "light");
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("zodex-theme");
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark");
+    themeToggle.checked = true;
   }
+});
+
+// === Background Upload ===
+const bgUpload = document.getElementById("bg-upload");
+
+bgUpload?.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const imgUrl = reader.result;
+    document.body.style.backgroundImage = `url(${imgUrl})`;
+    localStorage.setItem("zodex-bg", imgUrl);
+  };
+  reader.readAsDataURL(file);
+});
+
+const savedBg = localStorage.getItem("zodex-bg");
+if (savedBg) {
+  document.body.style.backgroundImage = `url(${savedBg})`;
+}
+
+// === Settings Panel Logic ===
+const settingsBtn = document.getElementById("settings-btn");
+const settingsPanel = document.getElementById("settings-panel");
+const saveBtn = document.getElementById("save-settings");
+const resetBtn = document.getElementById("reset-settings");
+
+settingsBtn?.addEventListener("click", () => {
+  settingsPanel.classList.toggle("hidden");
+});
+
+saveBtn?.addEventListener("click", () => {
+  localStorage.setItem("zodex-theme", themeToggle.checked ? "dark" : "light");
+  alert("Settings saved!");
+  settingsPanel.classList.add("hidden");
+});
+
+resetBtn?.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
 });
