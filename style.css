@@ -129,10 +129,30 @@ body.dark {
 }
 
 /* === Weather === */
+.weather-widget {
+  text-align: center;
+  margin-top: 1rem;
+}
+
 .weather {
-  color: #1e90ff;
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
+
+.weather-controls button {
+  margin: 0 0.5rem;
+  padding: 0.4rem 0.8rem;
   font-size: 1rem;
-  margin-top: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #1e90ff;
+  color: white;
+}
+
+.weather-controls button:hover {
+  background-color: #0073e6;
 }
 
 /* === Settings Panel === */
