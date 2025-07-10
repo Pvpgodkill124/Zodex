@@ -50,7 +50,13 @@
       <button id="reset-settings">Reset</button>
     </div>
   </div>
-
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("service-worker.js")
+      .then(() => console.log("Service Worker Registered ✅"));
+  }
+</script>
   <script type="module" src="script.js"></script>
 </body>
     </html>
