@@ -60,12 +60,15 @@ if (savedBg) {
 // === Clock ===
 function updateClock() {
   const clockEl = document.getElementById("clock");
+  if (!clockEl) return;
   const now = new Date();
-  clockEl.textContent = now.toLocaleTimeString();
+  const timeStr = now.toLocaleTimeString();
+  clockEl.textContent = `🕒 ${timeStr}`;
 }
 
 setInterval(updateClock, 1000);
-updateClock(); // Run once on load
+updateClock(); // run once on page load
+}
 
 // === Weather API ===
 async function fetchWeather() {
