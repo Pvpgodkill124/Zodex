@@ -58,38 +58,22 @@ if (savedBg) {
 }
 
 // === Weather API ===
-let weatherEnabled = true;
-
-function toggleWeather() {
-  weatherEnabled = !weatherEnabled;
-  document.getElementById("weather").textContent = weatherEnabled
-    ? "Weather will load shortly..."
-    : "Weather hidden.";
-  if (weatherEnabled) fetchWeather();
-}
-
 async function fetchWeather() {
-  if (!weatherEnabled) return;
-
   const weatherEl = document.getElementById("weather");
-  weatherEl.textContent = "Getting location...";
+  weatherEl.textContent = "Getting weather...";
 
   try {
-    const ipRes = await fetch("https://ipapi.co/json/");
-    const ipData = await ipRes.json();
-    const city = ipData.city || "Delhi";
-
-    weatherEl.textContent = `Fetching weather for ${city}...`;
-
-    const weatherRes = await fetch(`https://wttr.in/${city}?format=🌦 %t %w`);
-    const weather = await weatherRes.text();
-
-    weatherEl.textContent = `Weather in ${city}: ${weather}`;
+    const res = await fetch("https://wttr.in/?format=🌤️+%t+%w");
+    const text = await res.text();
+    weatherEl.textContent = `Weather: ${text}`;
   } catch (err) {
-    console.error("Weather error:", err);
-    weatherEl.textContent = "Failed to load weather.";
+    weatherEl.textContent = "Weather failed.";
+    console.error(err);
   }
 }
+
+// Call it on load
+fetchWeather();
 
 // === Settings Panel Logic ===
 const settingsBtn = document.getElementById("settings-btn");
