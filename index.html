@@ -1,71 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- index.html for ZODEX V5 --><!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZODEX – Better And Faster</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZODEX V5 - Better and Faster</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="app-container">
-    <header>
-      <h1 class="logo">ZODEX</h1>
-      <p class="tagline">Better And Faster</p>
-    </header>
-
-    <section class="search-section">
-      <form id="search-form">
-        <input type="text" id="search-input" placeholder="Search with Zodex Elite..." required />
-        <button type="submit" id="search-btn">
-          🔍
-        </button>
-      </form>
-      <div id="search-overlay" class="hidden">Searching...</div>
-      <div id="results"></div>
-    </section>
-
-    <section class="apps-section">
-      <!-- YouTube, ReminderNova etc -->
-      <a href="https://www.youtube.com" target="_blank" class="app-icon">YT</a>
-      <a href="https://studio.youtube.com" target="_blank" class="app-icon">YT Studio</a>
-      <a href="https://www.remidernova.nichesite.org" target="_blank" class="app-icon">ReminderNova</a>
-      <a href="https://dr1web.neocities.org" target="_blank" class="app-icon">DR1WEB</a>
-    </section>
-
-    <form id="search-form">
-  <!-- your search bar input -->
+  <div class="container">
+    <h1>ZODEX</h1>
+    <p class="tagline">Better And Faster</p><form id="search-form">
+  <input type="text" id="search-input" placeholder="Search with Zodex Elite..." required>
+  <button type="submit" id="search-btn">
+    <img src="https://img.icons8.com/ios-filled/50/000000/search--v1.png" alt="Search">
+  </button>
 </form>
 
-  <div id="weather" class="weather">Loading...</div>
-    
-  <div id="clock" class="clock">--:--:--</div>
-    
+<div id="clock">--:--:--</div>
+<div id="weather">Loading weather...</div>
 
-    <footer>
-      <button id="settings-btn">☰ Settings</button>
-    </footer>
+<div class="shortcuts">
+  <button onclick="window.location.href='https://youtube.com'">YT</button>
+  <button onclick="window.location.href='https://studio.youtube.com'">YT Studio</button>
+  <button onclick="window.location.href='https://www.remidernova.nichesite.org'">ReminderNova</button>
+  <button onclick="window.location.href='https://pvpgodkill124.github.io/DR1WEB'">DR1WEB</button>
+</div>
 
-    <!-- SETTINGS PANEL -->
-    <div id="settings-panel" class="hidden">
-      <h2>Settings</h2>
-      <label><input type="checkbox" id="toggle-theme" /> Enable Dark Theme</label>
-      <label><input type="checkbox" id="toggle-clock" /> Show Clock</label>
-      <label><input type="file" id="bg-upload" accept="image/*" /> Set Custom Background</label>
-      <label><input type="checkbox" id="toggle-weather" /> Show Weather</label>
+<button id="settings-btn">⚙ Settings</button>
 
-      <p class="credits">Visit <a href="https://www.remidernova.nichesite.org" target="_blank">ReminderNova</a></p>
-      <button id="save-settings">Save</button>
-      <button id="reset-settings">Reset</button>
-    </div>
-  </div>
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      .register("service-worker.js")
-      .then(() => console.log("Service Worker Registered ✅"));
-  }
-</script>
-  <script type="module" src="script.js"></script>
-</body>
-    </html>
+  </div>  <script src="script.js"></script></body>
+</html>
