@@ -57,6 +57,21 @@ if (savedBg) {
   document.body.style.backgroundImage = `url(${savedBg})`;
 }
 
+// === Weather API ===
+async function fetchWeather(city = "Delhi") {
+  const weatherElement = document.getElementById("weather");
+  weatherElement.textContent = "Loading weather...";
+
+  try {
+    const response = await fetch(`https://wttr.in/${city}?format=🌤+%t+%w`);
+    const data = await response.text();
+    weatherElement.textContent = `Weather in ${city}: ${data}`;
+  } catch (err) {
+    weatherElement.textContent = "Weather data unavailable";
+    console.error("Weather error:", err);
+  }
+}
+
 // === Settings Panel Logic ===
 const settingsBtn = document.getElementById("settings-btn");
 const settingsPanel = document.getElementById("settings-panel");
