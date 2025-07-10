@@ -120,6 +120,21 @@ body.dark {
   transform: scale(1.05);
 }
 
+/* === Clock === */
+.clock {
+  color: #1e90ff;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+/* === Weather === */
+.weather {
+  color: #1e90ff;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
 /* === Settings Panel === */
 #settings-panel {
   position: fixed;
