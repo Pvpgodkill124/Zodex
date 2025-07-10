@@ -1,29 +1,56 @@
-<!-- Starting ZODEX V3 - Core Setup --><!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ZODEX V3 - Elite Search</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZODEX – Better And Faster</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <div class="container">
-    <h1>ZODEX</h1>
-    <p class="tagline">Better And Faster</p><form id="search-form">
-  <input type="text" id="search-input" placeholder="Search with Zodex Elite..." required>
-  <button type="submit" id="search-btn">
-    <img src="https://img.icons8.com/ios-filled/50/000000/search--v1.png" alt="Search">
-  </button>
-</form>
+  <div class="app-container">
+    <header>
+      <h1 class="logo">ZODEX</h1>
+      <p class="tagline">Better And Faster</p>
+    </header>
 
-<select id="engine-select">
-  <option value="zodex">Zodex Elite (Default)</option>
-  <option value="google">Google</option>
-  <option value="bing">Bing</option>
-  <option value="duckduckgo">DuckDuckGo</option>
-</select>
+    <section class="search-section">
+      <form id="search-form">
+        <input type="text" id="search-input" placeholder="Search with Zodex Elite..." required />
+        <button type="submit" id="search-btn">
+          🔍
+        </button>
+      </form>
+      <div id="search-overlay" class="hidden">Searching...</div>
+      <div id="results"></div>
+    </section>
 
-<div id="search-overlay" class="hidden">Searching...</div>
-<div id="results"></div>
+    <section class="apps-section">
+      <!-- YouTube, ReminderNova etc -->
+      <a href="https://www.youtube.com" target="_blank" class="app-icon">YT</a>
+      <a href="https://studio.youtube.com" target="_blank" class="app-icon">YT Studio</a>
+      <a href="https://www.remidernova.nichesite.org" target="_blank" class="app-icon">ReminderNova</a>
+      <a href="https://dr1web.neocities.org" target="_blank" class="app-icon">DR1WEB</a>
+    </section>
 
-  </div>  <script type="module"src="script.js"></script></body>
-</html>
+    <footer>
+      <button id="settings-btn">☰ Settings</button>
+    </footer>
+
+    <!-- SETTINGS PANEL -->
+    <div id="settings-panel" class="hidden">
+      <h2>Settings</h2>
+      <label><input type="checkbox" id="toggle-theme" /> Enable Dark Theme</label>
+      <label><input type="checkbox" id="toggle-clock" /> Show Clock</label>
+      <label><input type="file" id="bg-upload" accept="image/*" /> Set Custom Background</label>
+      <label><input type="checkbox" id="toggle-weather" /> Show Weather</label>
+
+      <p class="credits">Visit <a href="https://www.remidernova.nichesite.org" target="_blank">ReminderNova</a></p>
+      <button id="save-settings">Save</button>
+      <button id="reset-settings">Reset</button>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+    </html>
