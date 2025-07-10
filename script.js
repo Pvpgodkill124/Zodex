@@ -68,7 +68,6 @@ function updateClock() {
 
 setInterval(updateClock, 1000);
 updateClock(); // run once on page load
-}
 
 // === Weather API ===
 async function fetchWeather() {
