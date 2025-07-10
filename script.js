@@ -58,17 +58,36 @@ if (savedBg) {
 }
 
 // === Weather API ===
-async function fetchWeather(city = "Delhi") {
-  const weatherElement = document.getElementById("weather");
-  weatherElement.textContent = "Loading weather...";
+let weatherEnabled = true;
+
+function toggleWeather() {
+  weatherEnabled = !weatherEnabled;
+  document.getElementById("weather").textContent = weatherEnabled
+    ? "Weather will load shortly..."
+    : "Weather hidden.";
+  if (weatherEnabled) fetchWeather();
+}
+
+async function fetchWeather() {
+  if (!weatherEnabled) return;
+
+  const weatherEl = document.getElementById("weather");
+  weatherEl.textContent = "Getting location...";
 
   try {
-    const response = await fetch(`https://wttr.in/${city}?format=🌤+%t+%w`);
-    const data = await response.text();
-    weatherElement.textContent = `Weather in ${city}: ${data}`;
+    const ipRes = await fetch("https://ipapi.co/json/");
+    const ipData = await ipRes.json();
+    const city = ipData.city || "Delhi";
+
+    weatherEl.textContent = `Fetching weather for ${city}...`;
+
+    const weatherRes = await fetch(`https://wttr.in/${city}?format=🌦 %t %w`);
+    const weather = await weatherRes.text();
+
+    weatherEl.textContent = `Weather in ${city}: ${weather}`;
   } catch (err) {
-    weatherElement.textContent = "Weather data unavailable";
     console.error("Weather error:", err);
+    weatherEl.textContent = "Failed to load weather.";
   }
 }
 
