@@ -57,6 +57,16 @@ if (savedBg) {
   document.body.style.backgroundImage = `url(${savedBg})`;
 }
 
+// === Clock ===
+function updateClock() {
+  const clockEl = document.getElementById("clock");
+  const now = new Date();
+  clockEl.textContent = now.toLocaleTimeString();
+}
+
+setInterval(updateClock, 1000);
+updateClock(); // Run once on load
+
 // === Weather API ===
 async function fetchWeather() {
   const weatherEl = document.getElementById("weather");
